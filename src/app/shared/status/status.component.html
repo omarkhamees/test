@@ -1,0 +1,62 @@
+<p
+  style="
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    box-sizing: border-box;
+  "
+  [ngStyle]="{
+    backgroundColor:
+      statusValue === '1'
+        ? '#ff642e'
+        : statusValue === '2'
+        ? '#ff158a'
+        : statusValue === '3'
+        ? '#9cd326'
+        : statusValue?.toString() === 'Move to Contacts'
+        ? '#16885d'
+        : statusValue === '4'
+        ? '#bb3354'
+        : statusValue === '5'
+        ? '#0086c0'
+        : statusValue === '6'
+        ? '#037f4c'
+        : statusValue === '7'
+        ? '#fc5858'
+        : statusValue === '8'
+        ? '#fc8c65'
+        : statusValue === '9'
+        ? '#75aeff'
+        : '#784bd1'
+  }"
+>
+  {{
+    statusValue === "1"
+      ? "Contacted"
+      : statusValue === "2"
+      ? "New Lead"
+      : statusValue === "3"
+      ? "Qualified"
+      : statusValue?.toString() === "Move to Contacts"
+      ? "Move to Contacts"
+      : statusValue === "4"
+      ? "UnQualified"
+      : statusValue === "5"
+      ? "Discovery"
+      : statusValue === "6"
+      ? "Proposal"
+      : statusValue === "7"
+      ? "High"
+      : statusValue === "8"
+      ? "Medium"
+      : statusValue === "9"
+      ? "Low"
+      : "Negotiation"
+  }}
+</p>

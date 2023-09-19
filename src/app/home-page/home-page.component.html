@@ -1,0 +1,14 @@
+<div class="homePageContainer">
+  <app-dashboard-side-bar
+    (scaleDownUpSideBarEvent)="scaleDownUpSideBarEvent($event)"
+    [sideBarWidth]="navWidth"
+    [navItems]="navItems"
+  />
+  <div
+    style="transition: all 0.4s ease"
+    [ngStyle]="{ minWidth: navWidth + 'px' }"
+  ></div>
+  <div style="flex-grow: 1">
+    <router-outlet />
+  </div>
+</div>

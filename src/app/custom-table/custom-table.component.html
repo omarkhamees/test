@@ -1,0 +1,183 @@
+<div class="tableContainer">
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let column of schema">
+          {{ column?.name }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        style="cursor: pointer"
+        (dblclick)="rowClicked(itemIndex)"
+        *ngFor="let item of data; let itemIndex = index"
+        [ngClass]="{ customRow: itemIndex !== itemToEditIndex && !item.edit }"
+      >
+        <td
+          colspan="7"
+          style="padding: 10px; padding-bottom: 10px"
+          *ngIf="
+            (editMode && itemIndex == itemToEditIndex) || item.edit;
+            else elseCase
+          "
+        >
+          <form
+            (ngSubmit)="onSubmit(tableCellFormRef, itemIndex, $event)"
+            #tableCellFormRef="ngForm"
+          >
+            <div style="display: flex">
+              <td
+                *ngFor="let column of schema; let idx = index"
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 150%;
+                  padding: 0;
+                "
+              >
+                <button
+                  [disabled]="!tableCellFormRef.valid"
+                  class="custom-btn save-btn"
+                  *ngIf="idx === 0"
+                  type="submit"
+                  (click)="stopPropagationFunc($event)"
+                >
+                  <ic-icon size="28" icon="saveIcon"> </ic-icon>
+                </button>
+                <input
+                  [email]="column?.extraValidations?.includes?.('email')"
+                  [type]="column.type"
+                  required
+                  [ngModel]="item[column?.value]"
+                  [placeholder]="column.name"
+                  [name]="column?.value"
+                  style="
+                    width: 75%;
+                    height: 35px;
+                    box-sizing: border-box;
+                    margin-left: 13px;
+                  "
+                  *ngIf="column.type === 'text'"
+                  (click)="stopPropagationFunc($event)"
+                />
+                <ng-template
+                  [dynamicComponent]="column?.dynamicComponent"
+                  [label]="column?.fixedValue"
+                  [routerTo]="column?.routerTo"
+                  appPlaceHolder
+                  *ngIf="column.type == 'dynamic'"
+                >
+                </ng-template>
+                <button
+                  class="drop-down-btn"
+                  type="button"
+                  *ngIf="column.type === 'select' && column?.dynamicComponent"
+                  mat-button
+                  [matMenuTriggerFor]="menu"
+                  [ngStyle]="{
+                    backgroundColor: !listValues[itemIndex]?.value
+                      ? 'transparent'
+                      : getOptionValueColor(column?.values, itemIndex),
+                    color: listValues[itemIndex]?.value && 'white',
+                    border:
+                      (listValues[itemIndex]?.value ||
+                        (editMode && itemToEditIndex === itemIndex)) &&
+                      0
+                  }"
+                >
+                  {{
+                    listValues[itemIndex]?.value
+                      ? getOptionValueLabel(column?.values, itemIndex)
+                      : "Choose " + column?.name
+                  }}
+                </button>
+                <mat-menu #menu="matMenu" class="menu-container">
+                  <p
+                    (click)="
+                      valueChoosed(column?.value, option?.value, itemIndex)
+                    "
+                    (mouseover)="hover = true; hoveredMenuItemIndex = optionIdx"
+                    (mouseleave)="hover = false; hoveredMenuItemIndex = null"
+                    class="custom-list-option"
+                    [ngStyle]="{
+                      marginBottom:
+                        optionIdx === column.values.length - 1 && '0px',
+                      backgroundColor: option?.color
+                    }"
+                    *ngFor="let option of column.values; let optionIdx = index"
+                    mat-menu-item
+                    style="color: white;"
+                  >
+                    {{ option?.label }}
+                  </p>
+                </mat-menu>
+                <mat-select
+                  class="matSelect"
+                  panelClass="example-panel-red"
+                  [name]="column.value"
+                  [ngModel]="item[column.value]"
+                  *ngIf="column.type === 'select' && !column?.dynamicComponent"
+                  multiple
+                >
+                  <mat-option
+                    *ngFor="let option of column?.values; let optionIdx = index"
+                    [value]="optionIdx"
+                  >
+                    {{ option?.label }}
+                  </mat-option>
+                </mat-select>
+                <button
+                  style="justify-self: left"
+                  class="custom-btn delete-btn"
+                  *ngIf="idx === schema.length - 1"
+                  type="button"
+                  (click)="dataRemoved(itemIndex)"
+                >
+                  <ic-icon size="28" icon="deleteIcon"> </ic-icon>
+                </button>
+              </td>
+            </div>
+          </form>
+        </td>
+        <ng-template #elseCase>
+          <ng-container>
+            <td
+              style="padding: 0px; width: 12%; box-sizing: border-box"
+              *ngFor="let column of schema; let idex = index"
+            >
+              <ng-template
+                [status]="item[column?.value]"
+                [dynamicComponent]="column?.dynamicComponent"
+                [label]="column?.fixedValue"
+                [routerTo]="column?.routerTo"
+                appPlaceHolder
+                *ngIf="column?.dynamicComponent; else textValue"
+              ></ng-template>
+              <ng-template #textValue>
+                <div
+                  class="chips-container"
+                  *ngIf="
+                    column.type === 'select' && !column?.dynamicComponent;
+                    else text
+                  "
+                >
+                  <p
+                    class="custom-chip"
+                    *ngFor="let option of item[column?.value]"
+                  >
+                    {{ column?.getValue(option) }}
+                  </p>
+                </div>
+                <ng-template #text>
+                  {{ item[column?.value] }}
+                </ng-template>
+              </ng-template>
+            </td>
+          </ng-container>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+</div>

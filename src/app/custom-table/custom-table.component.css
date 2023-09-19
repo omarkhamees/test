@@ -1,0 +1,43 @@
+table,
+td,
+th {
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th {
+  font-size: 18px;
+  width: 10%;
+  border-bottom: 1px solid rgb(235, 234, 234);
+}
+
+td,
+th {
+  padding: 12px;
+}
+
+.tableContainer {
+  border: 1px solid rgb(235, 234, 234);
+  border-left: 10px solid #0e277f;
+  border-radius: 15px;
+}
+
+.custom-option {
+  width: 100%;
+  color: white;
+  padding: 120px;
+}
+
+.customRow:hover {
+  background-color: #353e6d;
+  background-image: linear-gradient(to left, #353e6d, #596396);
+  /* rgb(240, 240, 240) */
+  color: white;
+  transition: all 0.4s ease;
+}
+
+/* @media screen and (max-width: 1600px) {
+  .responsive {
+    width: 100px;
+  }
+} */

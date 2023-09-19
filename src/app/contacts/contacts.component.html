@@ -1,0 +1,25 @@
+<div>
+  <app-page-header [headerTitle]="'Contacts'" />
+  <div style="margin: 24px">
+    <app-simple-form
+      (addNewItemEvent)="addNewItemEvent()"
+      btnTitle="New Contact"
+    ></app-simple-form>
+    <div class="tableContainer">
+      <!-- <div class="tableHeader">
+          <ic-icon
+            icon="bottomArrowIcon"
+            style="margin-top: -2px; margin-right: 5px; cursor: pointer"
+          ></ic-icon>
+          <p style="margin: 0px">Leads</p>1
+        </div> -->
+      <app-custom-table
+        [reRender]="reRender"
+        (newDataAdded)="newDataAdded($event)"
+        (dataRemovedEvent)="dataRemovedEvent($event)"
+        [data]="data"
+        [schema]="schema"
+      />
+    </div>
+  </div>
+</div>

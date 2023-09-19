@@ -1,0 +1,26 @@
+<div style="display: flex; align-items: center; margin-bottom: 15px">
+  <button
+    (click)="addNewItem()"
+    type="button"
+    class="custom-btn addBtn"
+    style="
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <ic-icon
+      style="margin-top: 4.3px; margin-right: 6px"
+      size="18"
+      icon="addIcon"
+    ></ic-icon>
+    {{ btnTitle }}
+  </button>
+  <input style="margin: 0px;" (input)="onSearch($event)" placeholder="Search" type="text" />
+  <mat-spinner
+    [color]="color"
+    *ngIf="loading"
+    style="width: 20px; height: 25px; margin-left: 10px;"
+  ></mat-spinner>
+</div>

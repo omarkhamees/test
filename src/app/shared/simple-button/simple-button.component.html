@@ -1,0 +1,22 @@
+<button
+  type="button"
+  [routerLink]="['../', routerTo]"
+  style="
+    color: white;
+    padding: 10px;
+    border: 0px;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    box-sizing: border-box;
+    background-color: rgb(9, 114, 9);
+    cursor: pointer;
+  "
+  (dblclick)="onClick($event)"
+>
+  {{ label }}
+</button>

@@ -1,0 +1,29 @@
+<div>
+  <div>
+    <app-page-header [headerTitle]="'Deals'" />
+  </div>
+  <div style="margin: 24px">
+    <app-simple-form
+      (addNewItemEvent)="addNewItemEvent()"
+      (onSearchEvent)="onSearch($event)"
+      btnTitle="New Deal"
+      [loading]="loading"
+    ></app-simple-form>
+    <div class="tableContainer">
+      <!-- <div class="tableHeader">
+        <ic-icon
+          icon="bottomArrowIcon"
+          style="margin-top: 4px; margin-right: 5px; cursor: pointer"
+        ></ic-icon>
+        <p style="margin: 0px">Active/Closed Deals</p>
+      </div> -->
+      <app-custom-table
+        (dataRemovedEvent)="dataRemovedEvent($event)"
+        [reRender]="reRender"
+        (newDataAdded)="newDataAdded($event)"
+        [data]="data"
+        [schema]="schema"
+      />
+    </div>
+  </div>
+</div>

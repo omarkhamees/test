@@ -1,0 +1,94 @@
+<div>
+  <div>
+    <app-header />
+  </div>
+  <div class="login">
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <p style="font-size: 40px; font-weight: lighter !important">Log In</p>
+      <p style="margin-top: 5px; font-size: 16px">() Company</p>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit()">
+      <div style="display: inline-grid; grid-template-columns: auto">
+        <div>
+          <input type="text" placeholder="Email" formControlName="email" />
+          <p
+            *ngIf="
+              (loginForm.get('email')?.touched &&
+                loginForm.get('email')?.errors?.email) ||
+              (loginForm.get('email')?.touched &&
+                !loginForm.get('email')?.valid)
+            "
+            class="errorMsg"
+          >
+            {{
+              loginForm.get("email")?.errors?.email
+                ? "Please Enter a valid Email value"
+                : "This Field is required"
+            }}
+          </p>
+        </div>
+        <div>
+          <div style="position: relative">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Password"
+              formControlName="password"
+            />
+            <ic-icon
+              [icon]="showPassword ? 'eye' : 'hideEye'"
+              size="20px"
+              (click)="showPassword = !showPassword"
+              class="custom-inputIcon"
+            ></ic-icon>
+          </div>
+          <p
+            *ngIf="
+              loginForm.get('password')?.touched &&
+              !loginForm.get('password')?.valid
+            "
+            class="errorMsg"
+          >
+            This Field is required
+          </p>
+        </div>
+        <button type="submit" class="custom-btn loginbtn">
+          <span style="font-size: 20px; margin-right: 5px">Login</span>
+          <ic-icon
+            icon="arrowRightLinear"
+            size="30px"
+            style="margin-top: 6px"
+          ></ic-icon>
+        </button>
+      </div>
+    </form>
+    <div
+      style="
+        display: inline-flex;
+        align-items: center;
+        margin-top: 30px;
+        flex-wrap: wrap;
+      "
+    >
+      <hr class="customHr" />
+      <button
+        (click)="logWithMicrosoft()"
+        type="button"
+        class="custom-btn microsoftbtn"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0px 5px;
+        "
+      >
+        Sign In Using Microsoft 365
+        <ic-icon
+          size="30px"
+          icon="microsoftIcon"
+          style="margin-left: 6px"
+        ></ic-icon>
+      </button>
+      <hr class="customHr" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<div
+  class="custom-dashboard"
+  displayOnHover
+  [ngStyle]="{ width: sideBarWidth + 'px' }"
+>
+  <div
+    *ngIf="scaleDownSideBarMode"
+    style="
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-top: 22px;
+    "
+  >
+    <div
+      style="
+        background-color: white;
+        position: absolute;
+        right: -24px;
+        border-radius: 50%;
+        border: 1px solid lightgray;
+      "
+      class="scaleDownSideBarHover"
+    >
+      <ic-icon
+        class="scaleDownSideBarHoverIcon"
+        *ngIf="showBackIcon"
+        (click)="scaleUpSideBar()"
+        style="
+          color: rgb(175, 173, 173);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        "
+        size="20"
+        icon="rightArrowIcon"
+      ></ic-icon>
+    </div>
+  </div>
+  <div
+    *ngIf="!scaleDownSideBarMode"
+    style="
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-top: 7px;
+    "
+  >
+    <h2 style="margin: 0px 0px 0px 4px; font-size: 28px">CRM</h2>
+    <div
+      style="
+        background-color: white;
+        position: absolute;
+        right: -23px;
+        border-radius: 50%;
+        border: 1px solid lightgray;
+      "
+      class="scaleDownSideBarHover"
+    >
+      <ic-icon
+        class="scaleDownSideBarHoverIcon"
+        *ngIf="showBackIcon"
+        (click)="scaleDownSideBar()"
+        style="
+          color: rgb(175, 173, 173);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        "
+        size="20"
+        icon="leftArrowIcon"
+      ></ic-icon>
+    </div>
+  </div>
+  <!-- <hr *ngIf="!scaleDownSideBarMode" style="color: white;width: 100%;margin-left: -1px;margin-top: 30px;" /> -->
+  <ul [ngStyle]="{ marginTop: !scaleDownSideBarMode ? '20px' : '100px' }">
+    <div
+      *ngFor="let navItem of navItems"
+      class="nav-item"
+      style="margin: 0px 0px 12px -2px"
+    >
+      <li
+        routerLinkActive="activeNav"
+        [routerLink]="['/home-page', navItem.path]"
+        style="padding: 10px; display: flex; align-items: center"
+        [ngStyle]="{
+          justifyContent: scaleDownSideBarMode ? 'center' : 'start'
+        }"
+      >
+        <ic-icon
+          style="display: flex; align-items: center; justify-content: center"
+          [icon]="navItem.icon"
+          size="22"
+          [ngStyle]="{ marginRight: !scaleDownSideBarMode ? '7px' : '0px' }"
+        ></ic-icon>
+        <span *ngIf="!scaleDownSideBarMode" style="font-size: 18px">{{
+          navItem.name
+        }}</span>
+      </li>
+    </div>
+  </ul>
+  <ic-icon
+    [matMenuTriggerFor]="accountMenu"
+    class="userAccountIcon"
+    size="40"
+    icon="userAccountIcon"
+  ></ic-icon>
+  <mat-menu #accountMenu="matMenu" class="custom-account-List">
+    <div style="display: flex; align-items: center">
+      <div
+        style="
+          min-width: 45px;
+          min-height: 45px;
+          border-radius: 50%;
+          color: white;
+          background-color: #000825;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <div style="font-size: 20px">OK</div>
+      </div>
+      <p style="margin-left: 10px; font-size: 14px">Omar Khamees</p>
+    </div>
+    <hr />
+    <div
+      routerLink="/login"
+      style="
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      "
+    >
+      <p>Log out</p>
+      <ic-icon
+        class="custom-logOutIcon"
+        size="22"
+        style="
+          color: #353e6d;
+          margin-top: 0px;
+          display: flex;
+          justify-content: right;
+        "
+        icon="logOutIcon"
+      ></ic-icon>
+    </div>
+    <!-- <hr /> -->
+  </mat-menu>
+</div>
